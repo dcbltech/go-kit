@@ -102,6 +102,15 @@ func ValidationFailed(errors []ValidationError) *Response {
 	}
 }
 
+func ValidationFailedWith(field, error string) *Response {
+	return ValidationFailed([]ValidationError{
+		{
+			Field:  field,
+			Errors: []string{error},
+		},
+	})
+}
+
 func Unauthorized() *Response {
 	return &Response{
 		Type:   responseTypeRespond,
