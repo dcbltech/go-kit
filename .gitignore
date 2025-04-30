@@ -1,0 +1,27 @@
+# IntelliJ IDEA project files
+.idea
+*.iml
+
+# Environment files
+*.env*
+am.p8
+_store
+
+# Compiled binary files
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+# Test and output files
+*.test
+*.out
+go.work
+
+# VSCode specific files
+.vscode/
+*.code-workspace
+
+# macOS specific files
+.DS_Store
