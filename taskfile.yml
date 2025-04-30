@@ -1,0 +1,9 @@
+# https://taskfile.dev
+
+version: "3"
+
+tasks:
+  mock:
+    desc: Generate mocks
+    cmds:
+      - mockgen -destination storage/mock/storage.go -package mock github.com/dcbltech/go-kit/storage Storage
