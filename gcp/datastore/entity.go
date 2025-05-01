@@ -7,8 +7,9 @@ import (
 )
 
 const (
-	entityFieldKey     = "__key__"
-	entityFieldCreated = "_created"
+	entityFieldKey           = "__key__"
+	entityFieldCreated       = "_created"
+	entityFieldCreatedLegacy = "created"
 )
 
 type Entity struct {
@@ -28,6 +29,8 @@ func (e *Entity) LoadProps(ps []datastore.Property, load propertyLoader) error {
 	for i := 0; i < len(ps); i++ {
 		switch ps[i].Name {
 		case entityFieldCreated:
+			e.Created = ps[i].Value.(time.Time)
+		case entityFieldCreatedLegacy:
 			e.Created = ps[i].Value.(time.Time)
 		default:
 			if err := load(ps[i]); err != nil {
