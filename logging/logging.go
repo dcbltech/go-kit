@@ -25,8 +25,21 @@ func Setup(debug bool, local bool) *slog.Logger {
 			case slog.LevelKey:
 				a.Key = "severity"
 
-				if level, ok := a.Value.Any().(slog.Level); ok && level == LevelCritical {
-					a.Value = slog.StringValue("CRITICAL")
+				if level, ok := a.Value.Any().(slog.Level); ok {
+					switch level {
+					case LevelCritical:
+						a.Value = slog.StringValue("CRITICAL")
+					case slog.LevelError:
+						a.Value = slog.StringValue("ERROR")
+					case slog.LevelWarn:
+						a.Value = slog.StringValue("WARNING")
+					case slog.LevelInfo:
+						a.Value = slog.StringValue("INFO")
+					case slog.LevelDebug:
+						a.Value = slog.StringValue("DEBUG")
+					default:
+						a.Value = slog.StringValue("DEFAULT")
+					}
 				}
 			}
 
@@ -45,6 +58,8 @@ func Setup(debug bool, local bool) *slog.Logger {
 	} else {
 		logger = slog.New(slog.NewJSONHandler(os.Stdout, o))
 	}
+
+	logger.Debug("logger initialized", "debug", debug, "local", local)
 
 	return logger
 }
