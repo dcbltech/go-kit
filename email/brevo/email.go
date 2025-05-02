@@ -3,6 +3,7 @@ package brevo
 import (
 	"context"
 
+	"github.com/dcbltech/go-kit/email"
 	brevo "github.com/getbrevo/brevo-go/lib"
 )
 
@@ -10,7 +11,7 @@ type Client struct {
 	client *brevo.APIClient
 }
 
-func Must(apiKey string) *Client {
+func Must(apiKey string) email.Emailer {
 	c := &Client{}
 
 	cfg := brevo.NewConfiguration()
