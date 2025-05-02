@@ -8,3 +8,4 @@ tasks:
     cmds:
       - mockgen -destination storage/mock/storage.go -package mock github.com/dcbltech/go-kit/storage Storage
       - mockgen -destination tts/mock/tts.go -package mock github.com/dcbltech/go-kit/tts TextToSpeech
+      - mockgen -destination email/mock/email.go -package mock github.com/dcbltech/go-kit/email Emailer
