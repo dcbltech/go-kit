@@ -29,14 +29,6 @@ func ValidateOrRespond[T any](c *gin.Context, payload *T) (ok bool) {
 	return
 }
 
-func Created() *Response {
-	return &Response{
-		Type:   responseTypeRespond,
-		Status: http.StatusCreated,
-		Data:   nil,
-	}
-}
-
 func OK() *Response {
 	return &Response{
 		Type:   responseTypeRespond,
@@ -49,6 +41,22 @@ func OKWithData(data any) *Response {
 	return &Response{
 		Type:   responseTypeRespond,
 		Status: http.StatusOK,
+		Data:   data,
+	}
+}
+
+func Created() *Response {
+	return &Response{
+		Type:   responseTypeRespond,
+		Status: http.StatusCreated,
+		Data:   nil,
+	}
+}
+
+func CreatedWithData(data any) *Response {
+	return &Response{
+		Type:   responseTypeRespond,
+		Status: http.StatusCreated,
 		Data:   data,
 	}
 }
