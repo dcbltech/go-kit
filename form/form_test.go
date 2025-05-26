@@ -24,7 +24,7 @@ func TestGetFileData(t *testing.T) {
 		t.Fatalf("failed to write file content: %v", err)
 	}
 
-	writer.Close()
+	_ = writer.Close()
 
 	r := httptest.NewRequest(http.MethodPost, "/upload", body)
 	r.Header.Set("Content-Type", writer.FormDataContentType())

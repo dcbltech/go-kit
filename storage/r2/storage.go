@@ -18,12 +18,11 @@ import (
 
 type Storage struct {
 	client     *s3.Client
-	baseURL    string
 	bucket     string
 	baseFolder string
 }
 
-func Must(endpoint, accessKeyID, secretAccessToken, baseURL, bucket, baseFolder string) *Storage {
+func Must(endpoint, accessKeyID, secretAccessToken, bucket, baseFolder string) *Storage {
 	cfg, err := config.LoadDefaultConfig(
 		context.Background(),
 		config.WithCredentialsProvider(credentials.NewStaticCredentialsProvider(accessKeyID, secretAccessToken, "")),
@@ -46,7 +45,6 @@ func Must(endpoint, accessKeyID, secretAccessToken, baseURL, bucket, baseFolder 
 
 	return &Storage{
 		client:     client,
-		baseURL:    baseURL,
 		bucket:     bucket,
 		baseFolder: baseFolder,
 	}
@@ -59,7 +57,7 @@ func (s *Storage) Exists(ctx context.Context, path, name string) (exists bool, e
 	})
 	if err != nil {
 		var responseError *awshttp.ResponseError
-		if errors.As(err, &responseError) && responseError.ResponseError.HTTPStatusCode() == http.StatusNotFound {
+		if errors.As(err, &responseError) && responseError.HTTPStatusCode() == http.StatusNotFound {
 			return false, nil
 		}
 

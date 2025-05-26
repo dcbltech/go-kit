@@ -94,11 +94,7 @@ func LocationFromOffset(offset string) *time.Location {
 }
 
 func secondsForOffset(offset string) int {
-	negative := false
-
-	if offset[0] == '-' {
-		negative = true
-	}
+	negative := offset[0] == '-'
 
 	hi, err := strconv.ParseInt(offset[1:3], 10, 64)
 	if err != nil {

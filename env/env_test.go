@@ -14,13 +14,13 @@ type Config struct {
 
 func TestMust(t *testing.T) {
 	t.Run("loads environment variables successfully", func(t *testing.T) {
-		os.Setenv("ENV", "local")
-		os.Setenv("APP_NAME", "TestApp")
-		os.Setenv("PORT", "8080")
+		_ = os.Setenv("ENV", "local")
+		_ = os.Setenv("APP_NAME", "TestApp")
+		_ = os.Setenv("PORT", "8080")
 
-		defer os.Unsetenv("ENV")
-		defer os.Unsetenv("APP_NAME")
-		defer os.Unsetenv("PORT")
+		defer func() { _ = os.Unsetenv("ENV") }()
+		defer func() { _ = os.Unsetenv("APP_NAME") }()
+		defer func() { _ = os.Unsetenv("PORT") }()
 
 		var config Config
 
@@ -33,9 +33,9 @@ func TestMust(t *testing.T) {
 	})
 
 	t.Run("panics when required environment variable is missing", func(t *testing.T) {
-		os.Setenv("ENV", "local")
+		_ = os.Setenv("ENV", "local")
 
-		defer os.Unsetenv("ENV")
+		defer func() { _ = os.Unsetenv("ENV") }()
 
 		var config Config
 		assert.Panics(t, func() {

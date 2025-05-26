@@ -6,7 +6,6 @@ import (
 	"io"
 	"reflect"
 	"strings"
-
 	"log/slog"
 
 	"github.com/gin-gonic/gin"
@@ -45,8 +44,6 @@ func Validate[T any](c *gin.Context, container *T) (ok bool, validationErrors []
 		if !as {
 			return ok, validationErrors, err
 		}
-
-		err = nil
 
 		for _, e := range ve {
 			if eve, ok := re[e.Field()]; !ok {
