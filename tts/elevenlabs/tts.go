@@ -10,8 +10,9 @@ import (
 const (
 	modelID = "eleven_multilingual_v2"
 
-	VoiceSally = "JZz8TL6s5j2bYyqcdMGd"
-	VoiceAlex  = "309S8JBhLa9bfjM7NbZ4"
+	VoiceSally   = "JZz8TL6s5j2bYyqcdMGd"
+	VoiceCassidy = "56AoDkrOh6qfVPDXZ7Pt"
+	VoiceMark    = "UgBBYS2sOqTuMpoF3BR0"
 )
 
 type TextToSpeech struct {
