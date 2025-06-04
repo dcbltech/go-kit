@@ -4,11 +4,17 @@ import (
 	"context"
 	"os"
 
+	"cloud.google.com/go/compute/metadata"
 	"cloud.google.com/go/datastore"
 	"google.golang.org/api/option"
 )
 
-func Must(ctx context.Context, projectID, databaseID string) *datastore.Client {
+func Must(ctx context.Context, databaseID string) *datastore.Client {
+	projectID, err := metadata.ProjectIDWithContext(ctx)
+	if err != nil {
+		panic(err)
+	}
+
 	var opts []option.ClientOption
 
 	if os.Getenv("DATASTORE_EMULATOR_HOST") == "" {
@@ -18,7 +24,6 @@ func Must(ctx context.Context, projectID, databaseID string) *datastore.Client {
 	}
 
 	var client *datastore.Client
-	var err error
 
 	if databaseID == "" {
 		client, err = datastore.NewClient(ctx, projectID, opts...)
